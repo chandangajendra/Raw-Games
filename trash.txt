@@ -1,0 +1,6 @@
+
+    works in to do list 
+
+    1. logics for ui changes when page change  
+    2. add hover effect in Card 
+    3. Add different pages 
