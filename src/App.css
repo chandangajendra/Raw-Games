@@ -1,100 +1,124 @@
       /* google fonts  */
       @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
 
-body{
-  background-color:#1A1A1D;
-  /* color: #c3073f; */
-  color: white;
-}
+      /* universal css  */
+      ul {
+        list-style-type: none;
+      }
 
-/* \#1A1A1D,#950740 ,#c3073f*/
+      a {
+        text-decoration: none;
+      }
+
+      body {
+        background-color: #1A1A1D;
+        /* color: #c3073f; */
+        color: white;
+      }
+
+      /* \#1A1A1D,#950740 ,#c3073f*/
+      input:focus {
+        outline: none !important;
+      }
+
+      /* Navbar CSS  */
+      .navbar {
+        display: grid;
+        grid-template-columns: 10px 1fr 7fr 3fr 10px;
+        line-height: 50px;
+        font-family: 'Roboto Mono', monospace;
+      }
+
+      .input-navbar {
+        color: white;
+        background-color: #1A1A1D;
+      }
+
+      .ul-navbar {
+        display: flex;
+        list-style-type: none;
+      }
+
+      .ul-navbar li {
+        padding: 0px 5px;
+        cursor: pointer;
+      }
+
+      .btn-navbar button {
+        color: white;
+      }
+
+      .ul-navbar li:hover,
+      .btn-navbar:hover {
+        color: #c3073f;
+      }
+
+      .form-control {
+        border-radius: 2.375rem;
+        outline: none;
+      }
+
+      .dropdown-menu {
+        right: 0;
+      }
+
+      .heading h2 {
+        font-size: 3rem;
+      }
+
+      .heading p {
+        font-size: 1rem;
+      }
+
+      /* css for a particular card  */
+      .card {
+        color: white;
+        background: #2e2828;
+        border-radius: 18px;
+      }
+
+      .card-dsc {
+        text-align: left;
+        cursor: pointer;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 1.6em;
+        margin: 5px 8px;
+      }
+
+      .card-dsc i {
+        margin: 2px 4px;
+      }
+
+      .card-dsc h3:hover {
+        color: #786c6c;
+      }
+
+      .dsc-right {
+        text-align: right;
+      }
+
+      .dsc-hr {
+        opacity: 0.2;
+        margin: 7px 1px;
+      }
+
+      .dsc-left h6 {
+        color: #868181;
+      }
+
+      .dsc-left h6,
+      .dsc-right h6 {
+        font-size: 15px;
+      }
+
+      .display-toggle {
+        display: none;
+      }
 
 
-/* Navbar CSS  */
-.navbar{
-  display: grid;
-  grid-template-columns: 10px 1fr 7fr 3fr 10px ;
-  line-height: 50px;
-  font-family: 'Roboto Mono', monospace;
-}
-.input-navbar{
-  color: white;
-  background-color:#1A1A1D;
-}
-
-.ul-navbar{
-display: flex ;
-list-style-type: none;
-}
-
-.ul-navbar li {
-  padding: 0px 5px;
-  cursor: pointer;
-}
-.btn-navbar button{
-  color: white;
-}
-.ul-navbar li:hover ,.btn-navbar:hover{
- color: #c3073f;
-}
-
-.form-control {
-  border-radius: 2.375rem;
-  outline: none;
-}
-.dropdown-menu{
-  right: 0;
-}
-.heading h2 {
-  font-size: 3rem;
-}
-.heading p {
-  font-size: 1rem;
-}
-/* css for a particular card  */
-.card{
-  color: white;
-  background: #2e2828;
-  border-radius: 18px;
-}
-
-.card-dsc{
-  text-align: left;
-  cursor: pointer;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 1.6em;
-  margin: 5px 8px;
-}
-
-.card-dsc i {
-  margin: 2px 4px;
-}
-
-.card-dsc h3:hover {
-  color: #786c6c;
-}
-.dsc-right{
-  text-align: right;
-}
-.dsc-hr{
-  opacity: 0.2;
-    margin: 7px 1px;
-}
-.dsc-left h6{
-  color: #868181;
-}
-.dsc-left h6 ,.dsc-right h6{
-  font-size: 15px;
-}
-
-.display-toggle{
-  display: none;
-}
-
-
-/* pagination section css  */
-.page-item a {
-  /* background-color: #9f9797;
+      /* pagination section css  */
+      .page-item a {
+        /* background-color: #9f9797;
   color: white; */
-  cursor: pointer;
-}
+        cursor: pointer;
+      }
