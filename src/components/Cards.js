@@ -3,6 +3,7 @@ import { Card } from './Card';
 import { useState, useEffect } from 'react';
 import { Pagination } from './Pagination';
 import LoadingBar from 'react-top-loading-bar';
+import { useLocation } from 'react-router-dom';
 
 export const Cards = (props) => {
 
@@ -10,11 +11,11 @@ export const Cards = (props) => {
     const [results, setResults] = useState([]);
     const [totalResult, setTotalResult] = useState(0);
     const [progress, setProgress] = useState(0);
+    let location = useLocation();
 
     // fetching the data through API 
     const fetchData = async () => {
-        console.log("react router is in now sports section ");
-        setProgress(0);
+        setProgress(20);
         const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${page}&page_size=${props.pageSize}&genres=${props.genre}`;
         // const uri = `https://api.rawg.io/api/games?key=22112c2feadd44a5a4a5dec82e74fd95`;
         // const uri = `https://api.rawg.io/api/games?key=22112c2feadd44a5a4a5dec82e74fd95&search_exact=true&search=The Witcher 3: Wild Hunt`;
@@ -35,12 +36,12 @@ export const Cards = (props) => {
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [location])
 
     // fetching next page 
     let fetchNextPage = async () => {
         setProgress(0)
-        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${page + 1}&page_size=${props.pageSize}`;
+        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${page + 1}&page_size=${props.pageSize}&genres=${props.genre}`;
         setPage(page + 1);
         setProgress(30)
         let data = await fetch(uri);
@@ -53,7 +54,7 @@ export const Cards = (props) => {
     // fetching next page 
     let fetchPrevPage = async () => {
         setProgress(0);
-        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${page - 1}&page_size=${props.pageSize}`;
+        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${page - 1}&page_size=${props.pageSize}&genres=${props.genre}`;
         setPage(page - 1);
         setProgress(30);
         let data = await fetch(uri);
@@ -123,8 +124,8 @@ export const Cards = (props) => {
                     {
                         results.map((element) => {
                             return (
-                                < div className='col-md-4' key={element.name} >
-                                    <Card name={element.name} bg_img={element.background_image} rel_date={element.released} genre={extractGenre(element.genres)} platform_icon={cheack_icon(element.parent_platforms)} />
+                                <div className='col-md-4' key={element.id} >
+                                    <Card name={element.name} bg_img={element.background_image} rel_date={element.released} genre={extractGenre(element.genres)} platform_icon={cheack_icon(element.parent_platforms)} key={element.id} />
                                 </div>
                             )
                         })

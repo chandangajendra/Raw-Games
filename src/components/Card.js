@@ -13,8 +13,6 @@ export const Card = (props) => {
                             <div className="card-dsc">
                                 {platform_icon}
                                 <h3>{name}</h3>
-
-                                {/* condition ? exprIfTrue : exprIfFalse */}
                                 <div className={`card-hover`}>
                                     <div className="row">
                                         <div className="col dsc-left"><h6>Genre</h6></div>

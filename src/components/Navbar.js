@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outlet, Link } from "react-router-dom";
 
+
 export const Navbar = () => {
     return (
         <>
@@ -19,20 +20,24 @@ export const Navbar = () => {
                                 More
                             </button>
                             <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Menu item</a></li>
-                                <li><a className="dropdown-item" href="#">Menu item</a></li>
-                                <li><a className="dropdown-item" href="#">Menu item</a></li>
+                                <li><Link className="dropdown-item" to={`/Shooter`}>Shooter</Link></li>
+                                <li><Link className="dropdown-item" to={`/Adventure`}>Adventure</Link></li>
+                                <li><Link className="dropdown-item" to={`/multiplayer`}>Multiplayer</Link></li>
+                                <li><Link className="dropdown-item" to={`/Fighting`}>Fighting</Link></li>
+                                <li><Link className="dropdown-item" to={`/RPG`}>RPG</Link></li>
+                                <li><Link className="dropdown-item" to={`/Indie`}>Indie</Link></li>
                             </ul>
                         </div>
                     </li>
-                    <li><Link to="/" >Action</Link ></li>
-                    <li><Link to="racing" >racing</Link></li>
-                    <li><Link to="sports" >sports</Link></li>
+                    <li><Link to={""}>Action</Link></li>
+                    <li><Link to={`/racing`}>racing</Link></li>
+                    <li><Link to="/sports">sports</Link></li>
 
                 </ul>
                 </div>
                 <div className="navbar-item"></div>
             </div>
+
             <Outlet />
         </>
     )

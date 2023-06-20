@@ -8,6 +8,7 @@
 
       a {
         text-decoration: none;
+        color: white;
       }
 
       body {
@@ -49,7 +50,8 @@
       }
 
       .ul-navbar li:hover,
-      .btn-navbar:hover {
+      .btn-navbar:hover,
+      a:hover {
         color: #c3073f;
       }
 
