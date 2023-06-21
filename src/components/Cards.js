@@ -17,8 +17,8 @@ export const Cards = (props) => {
     const fetchData = async () => {
         setProgress(20);
         const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${page}&page_size=${props.pageSize}&genres=${props.genre}`;
-        // const uri = `https://api.rawg.io/api/games?key=22112c2feadd44a5a4a5dec82e74fd95`;
-        // const uri = `https://api.rawg.io/api/games?key=22112c2feadd44a5a4a5dec82e74fd95&search_exact=true&search=The Witcher 3: Wild Hunt`;
+        // const uri = `https://api.rawg.io/api/games?key=22112c2feadd44a5a4a5dec82e74fd95&page=1&page_size=9&genres=action`;
+
         let data = await fetch(uri);
         let parsedData = await data.json();
         setProgress(50)
@@ -36,10 +36,11 @@ export const Cards = (props) => {
 
     useEffect(() => {
         fetchData();
+        // eslint-disable-next-line
     }, [location])
 
     // fetching next page 
-    let fetchNextPage = async () => {
+    const fetchNextPage = async () => {
         setProgress(0)
         const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${page + 1}&page_size=${props.pageSize}&genres=${props.genre}`;
         setPage(page + 1);
@@ -52,10 +53,23 @@ export const Cards = (props) => {
     }
 
     // fetching next page 
-    let fetchPrevPage = async () => {
+    const fetchPrevPage = async () => {
         setProgress(0);
         const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${page - 1}&page_size=${props.pageSize}&genres=${props.genre}`;
         setPage(page - 1);
+        setProgress(30);
+        let data = await fetch(uri);
+        let parsedData = await data.json();
+        setProgress(70);
+        setResults(parsedData.results);
+        setProgress(100);
+    }
+
+    // fetching the data of a particular page
+    const fetchPageData = async (pageNO) => {
+        setProgress(0);
+        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${pageNO}&page_size=${props.pageSize}&genres=${props.genre}`;
+        // const uri = `https://api.rawg.io/api/games?key=22112c2feadd44a5a4a5dec82e74fd95&page=1&page_size=9&genres=racing`;
         setProgress(30);
         let data = await fetch(uri);
         let parsedData = await data.json();
@@ -132,7 +146,7 @@ export const Cards = (props) => {
                     }
                 </div>
 
-                <Pagination pageNo={page} lastPage={totalPage} fetchPrev={fetchPrevPage} fetchNext={fetchNextPage} />
+                <Pagination pageNo={page} fetchPageData={fetchPageData} lastPage={totalPage} fetchPrev={fetchPrevPage} fetchNext={fetchNextPage} />
             </div >
 
         </>

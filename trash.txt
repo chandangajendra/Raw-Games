@@ -1,5 +1,4 @@
 
-
-1. Enable search button 
-2. Enable input in pagination section
-3. change the ui of nav tabs
+1. toggle submit button in page number
+2. Enable search button 
+3. There is genre problem in page number
