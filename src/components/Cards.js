@@ -1,10 +1,9 @@
 import { useState, useEffect, React } from 'react';
 import { Card } from './Card';
-import { Pagination } from './Pagination';
 import LoadingBar from 'react-top-loading-bar';
 import { useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { setPageDefault } from "../action/index";
+import { useSelector } from 'react-redux';
+import Spinner from './Spinner';
 
 
 export const Cards = (props) => {
@@ -15,7 +14,7 @@ export const Cards = (props) => {
     const [totalResult, setTotalResult] = useState(0);
     const [progress, setProgress] = useState(0);
     let location = useLocation();
-    const dispatch = useDispatch();
+
 
     // fetching the data through API 
     const fetchData = async () => {
@@ -31,15 +30,8 @@ export const Cards = (props) => {
 
     }
 
-    // calculating total number of pages 
-    const totalPage = () => {
-        let lastPage = Math.ceil(totalResult / props.pageSize);
-        return lastPage;
-    }
-
+    // if we fetch 20 card then it would took 500 pages 
     useEffect(() => {
-        totalPage();
-        // dispatch(setPageDefault());
         fetchData();
         // eslint-disable-next-line
     }, [location])
@@ -55,32 +47,6 @@ export const Cards = (props) => {
         setProgress(70)
         setResults(parsedData.results);
         setProgress(100)
-    }
-
-    // fetching next page 
-    const fetchPrevPage = async () => {
-        setProgress(0);
-        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${myPageNo - 1}&page_size=${props.pageSize}&genres=${props.genre}`;
-        // setPage(myPageNo - 1);
-        setProgress(30);
-        let data = await fetch(uri);
-        let parsedData = await data.json();
-        setProgress(70);
-        setResults(parsedData.results);
-        setProgress(100);
-    }
-
-    // fetching the data of a particular page
-    const fetchPageData = async () => {
-        setProgress(0);
-        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${myPageNo}&page_size=${props.pageSize}&genres=${props.genre}`;
-        // const uri = `https://api.rawg.io/api/games?key=22112c2feadd44a5a4a5dec82e74fd95&page=1&page_size=9&genres=racing`;
-        setProgress(30);
-        let data = await fetch(uri);
-        let parsedData = await data.json();
-        setProgress(70);
-        setResults(parsedData.results);
-        setProgress(100);
     }
 
     // Exctracting the genres of indivisual games 
@@ -145,13 +111,15 @@ export const Cards = (props) => {
                             return (
                                 <div className='col-md-4' key={element.id} >
                                     <Card name={element.name} bg_img={element.background_image} rel_date={element.released} genre={extractGenre(element.genres)} platform_icon={cheack_icon(element.parent_platforms)} key={element.id} />
+                                    {/* <Spinner /> */}
                                 </div>
+
                             )
                         })
                     }
                 </div>
 
-                <Pagination fetchPageData={fetchPageData} lastPage={totalPage} fetchPrev={fetchPrevPage} fetchNext={fetchNextPage} />
+                {/* <Pagination fetchPageData={fetchPageData} lastPage={totalPage} fetchPrev={fetchPrevPage} fetchNext={fetchNextPage} /> */}
             </div >
 
         </>
