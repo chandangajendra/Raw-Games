@@ -7,8 +7,17 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import { incNumber, decNumber } from "./action/index";
+import { useSelector, useDispatch } from 'react-redux';
+
+
+
 
 function App() {
+
+  const dispatch = useDispatch();
+  const myState = useSelector((state) => state.changeTheNumber);
+
   let api = "22112c2feadd44a5a4a5dec82e74fd95";
   const router = createBrowserRouter([
     {
@@ -51,6 +60,14 @@ function App() {
         {
           path: "/Indie",
           element: <Cards apiKey={api} pageSize={9} genre={"indie"} />,
+        },
+        {
+          path: "/redux",
+          element: <div className="quantity">
+            <a className="quantity-minus" onClick={() => dispatch(decNumber(2))}>-</a>
+            <input type="text" className='quantity-input' value={myState} />
+            <a className="quantity-plus" onClick={() => dispatch(incNumber(5))}>+</a>
+          </div>,
         },
       ],
     },

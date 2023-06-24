@@ -2,3 +2,5 @@
 1. toggle submit button in page number
 2. Enable search button 
 3. There is genre problem in page number
+
+page number is not changing in use effect // i ignored it for now

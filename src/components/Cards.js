@@ -1,30 +1,34 @@
-import React from 'react';
+import { useState, useEffect, React } from 'react';
 import { Card } from './Card';
-import { useState, useEffect } from 'react';
 import { Pagination } from './Pagination';
 import LoadingBar from 'react-top-loading-bar';
 import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPageDefault } from "../action/index";
+
 
 export const Cards = (props) => {
 
-    const [page, setPage] = useState(1);
+    const myPageNo = useSelector((state) => state.handlePageNo);
+    // const [page, setPage] = useState(1);
     const [results, setResults] = useState([]);
     const [totalResult, setTotalResult] = useState(0);
     const [progress, setProgress] = useState(0);
     let location = useLocation();
+    const dispatch = useDispatch();
 
     // fetching the data through API 
     const fetchData = async () => {
         setProgress(20);
-        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${page}&page_size=${props.pageSize}&genres=${props.genre}`;
+        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${myPageNo}&page_size=${props.pageSize}&genres=${props.genre}`;
         // const uri = `https://api.rawg.io/api/games?key=22112c2feadd44a5a4a5dec82e74fd95&page=1&page_size=9&genres=action`;
-
         let data = await fetch(uri);
         let parsedData = await data.json();
         setProgress(50)
         setResults(parsedData.results);
         setTotalResult(parsedData.count);
         setProgress(100)
+
     }
 
     // calculating total number of pages 
@@ -32,9 +36,10 @@ export const Cards = (props) => {
         let lastPage = Math.ceil(totalResult / props.pageSize);
         return lastPage;
     }
-    totalPage();
 
     useEffect(() => {
+        totalPage();
+        // dispatch(setPageDefault());
         fetchData();
         // eslint-disable-next-line
     }, [location])
@@ -42,8 +47,8 @@ export const Cards = (props) => {
     // fetching next page 
     const fetchNextPage = async () => {
         setProgress(0)
-        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${page + 1}&page_size=${props.pageSize}&genres=${props.genre}`;
-        setPage(page + 1);
+        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${myPageNo + 1}&page_size=${props.pageSize}&genres=${props.genre}`;
+        // setPage(myPageNo + 1);
         setProgress(30)
         let data = await fetch(uri);
         let parsedData = await data.json();
@@ -55,8 +60,8 @@ export const Cards = (props) => {
     // fetching next page 
     const fetchPrevPage = async () => {
         setProgress(0);
-        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${page - 1}&page_size=${props.pageSize}&genres=${props.genre}`;
-        setPage(page - 1);
+        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${myPageNo - 1}&page_size=${props.pageSize}&genres=${props.genre}`;
+        // setPage(myPageNo - 1);
         setProgress(30);
         let data = await fetch(uri);
         let parsedData = await data.json();
@@ -66,9 +71,9 @@ export const Cards = (props) => {
     }
 
     // fetching the data of a particular page
-    const fetchPageData = async (pageNO) => {
+    const fetchPageData = async () => {
         setProgress(0);
-        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${pageNO}&page_size=${props.pageSize}&genres=${props.genre}`;
+        const uri = `https://api.rawg.io/api/games?key=${props.apiKey}&page=${myPageNo}&page_size=${props.pageSize}&genres=${props.genre}`;
         // const uri = `https://api.rawg.io/api/games?key=22112c2feadd44a5a4a5dec82e74fd95&page=1&page_size=9&genres=racing`;
         setProgress(30);
         let data = await fetch(uri);
@@ -146,7 +151,7 @@ export const Cards = (props) => {
                     }
                 </div>
 
-                <Pagination pageNo={page} fetchPageData={fetchPageData} lastPage={totalPage} fetchPrev={fetchPrevPage} fetchNext={fetchNextPage} />
+                <Pagination fetchPageData={fetchPageData} lastPage={totalPage} fetchPrev={fetchPrevPage} fetchNext={fetchNextPage} />
             </div >
 
         </>

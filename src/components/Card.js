@@ -1,7 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
+
 
 export const Card = (props) => {
     let { name, bg_img, rel_date, genre, platform_icon } = props;
+    const myPageNo = useSelector((state) => state.handlePageNo);
 
     return (
         <>
